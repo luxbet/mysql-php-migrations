@@ -46,7 +46,7 @@ class MpmInitController extends MpmController
 		$clw->writeHeader();
 		echo "Defaults are in brackets ([]).  To accept the default, simply press ENTER.\n\n";
 
-		if (file_exists(MPM_PATH . '/config/db_config.php'))
+		if (file_exists(MPM_CONFIG_FILE_PATH . '/db_config.php'))
 		{
 			echo "\nWARNING:  IF YOU CONTINUE, YOUR EXISTING MIGRATION SETUP WILL BE ERASED!";
 			echo "\nThis will not affect your existing migrations or database, but \ncould cause your future migrations to fail.";
@@ -62,7 +62,7 @@ class MpmInitController extends MpmController
 			}
 			else
 			{
-			    require(MPM_PATH . '/config/db_config.php');
+			    require(MPM_CONFIG_FILE_PATH . '/db_config.php');
 			}
 		}
 
@@ -261,12 +261,12 @@ class MpmInitController extends MpmController
         $file .= '$db_config->migrations_table = ' . "'" . $migrations_table . "';" . "\n";
         $file .= "\n?>";
 
-		if (file_exists(MPM_PATH . '/config/db_config.php'))
+		if (file_exists(MPM_CONFIG_FILE_PATH . '/db_config.php'))
 		{
-			unlink(MPM_PATH . '/config/db_config.php');
+			unlink(MPM_CONFIG_FILE_PATH . '/db_config.php');
 		}
 
-		$fp = fopen(MPM_PATH . '/config/db_config.php', "w");
+		$fp = fopen(MPM_CONFIG_FILE_PATH . '/db_config.php', "w");
 		if ($fp == false)
 		{
 			echo "\nUnable to write to file.  Initialization failed!\n\n";
@@ -280,7 +280,7 @@ class MpmInitController extends MpmController
 		}
 		fclose($fp);
 
-		require(MPM_PATH . '/config/db_config.php');
+		require(MPM_CONFIG_FILE_PATH . '/db_config.php');
 		$GLOBALS['db_config'] = $db_config;
 
 		echo "\nConfiguration saved... looking for existing migrations table... ";

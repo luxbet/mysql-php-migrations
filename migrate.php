@@ -23,7 +23,9 @@ if (function_exists('date_default_timezone_set'))
 /**
  * Define the full path to this file.
  */
-define('MPM_PATH', dirname(__FILE__));
+if (!defined('MPM_PATH')) {
+  define('MPM_PATH', dirname(__FILE__));
+}
 
 /**
  * Version Number - for reference
