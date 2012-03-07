@@ -18,6 +18,20 @@ New changes by luxbet:
   (when using ./migrate.php add, it is still put under /db directly, but you can move them around later)
 * an SQL log file (log.sql) for all the SQL from migration files of last run
 * fix bugs and a little nicer CLI prompt
+* You can redefine ``MPM_PATH`` and ``MPM_CONFIG_FILE_PATH`` so you can share one installation across multiple projects
+
+```php
+#!/usr/bin/env php
+<?php
+
+define('MPM_PATH', '/usr/local/src/mysql-php-migration');
+
+# the config file is ./db_migration/db_config.php
+define('MPM_CONFIG_FILE_PATH', './db_migration');
+
+require(MPM_PATH . '/migrate.php');
+
+```
 
 Known Issues:
 
