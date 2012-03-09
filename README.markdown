@@ -11,7 +11,7 @@ This project was created to address the problem of maintaining database changes 
 * support for PDO with MySQL driver or mysqli
 * can store an initial DB schema which allows entire database structure to be erased and rebuilt from an initial schema and existing migrations
 
-## New changes by luxbet:
+## New changes by 2.2.0-luxbet:
 
 * --dry-run / -p support: try out without any database changes
 * migration files can be grouped by put under separate folders under /db

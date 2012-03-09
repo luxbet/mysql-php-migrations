@@ -30,7 +30,7 @@ if (!defined('MPM_PATH')) {
 /**
  * Version Number - for reference
  */
-define('MPM_VERSION', '2.1.4');
+define('MPM_VERSION', '2.2.0-luxbet');
 
 /**
  * Include the init script.

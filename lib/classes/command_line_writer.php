@@ -91,7 +91,7 @@ class MpmCommandLineWriter
 		$blank->indent = 0;
 		array_unshift($this->text, $blank);
 
-		$max_line_len = $this->maxWidth - 12;
+		$max_line_len = $this->maxWidth - strlen(MPM_VERSION) - 8;
 		$bar = '';
 		for ($i = 0; $i < $max_line_len; $i++)
 		{

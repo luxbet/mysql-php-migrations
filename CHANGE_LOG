@@ -1,3 +1,16 @@
+= VERSION 2.2.0-luxbet =
+  * --dry-run / -p support: try out without any database changes
+  * migration files can be grouped by put under separate folders under /db
+    (when using ./migrate.php add, it is still put under /db directly, but you can move them around later)
+  * an SQL log file (log.sql) for all the SQL from migration files of last run
+  * fix bugs and a little nicer CLI prompt
+  * You can redefine ``MPM_PATH`` and ``MPM_CONFIG_FILE_PATH`` so you can share one installation across multiple projects
+  * rename migration config file name from ``db_config.php`` to ``db_migration_config.php``
+  * add a ``info`` field to migration file, which will be shown in the SQL log file and list command
+  * "list" command: show migration info and "highlight" current migration so you don't need to run "status" command separately
+
+  (NOTE: our luxbet branch may break some PDO support when adding --dry-run :( We use mysqli only. so use with caution)
+
 = VERSION 2.1.4 =
   * fixed: incorporated bug fix from denis-bykov: STDIN built-in constant can be undefined causing the init controller to enter an infinite loop
   * fixed: removed test data from schema.php and test_data.php
