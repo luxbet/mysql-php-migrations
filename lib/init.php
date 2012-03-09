@@ -12,11 +12,11 @@ if (!defined('MPM_CONFIG_FILE_PATH')) {
 	define('MPM_CONFIG_FILE_PATH', MPM_PATH . '/config');
 }
 
-if (file_exists(MPM_CONFIG_FILE_PATH . '/db_config.php')) {
+if (file_exists(MPM_CONFIG_FILE_PATH . '/db_migration_config.php')) {
 	/**
 	 * Include the database connection info.
 	 */
-	require_once(MPM_CONFIG_FILE_PATH . '/db_config.php');
+	require_once(MPM_CONFIG_FILE_PATH . '/db_migration_config.php');
 }
 
 if (!defined('MPM_DB_PATH'))

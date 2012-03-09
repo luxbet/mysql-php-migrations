@@ -33,17 +33,18 @@ class MpmListHelper
         return $obj->total;
     }
 
-    /**
-     * Returns a full list of all migrations.
-     *
-     * @uses MpmDbHelper::doMultiRowSelect()
-     *
-     * @param int $startIdx the start index number
-     * @param int $total    total number of records to return
-     *
-     * @return arrays
-     */
-    static function getFullList($startIdx = 0, $total = 30)
+	/**
+	 * Returns a full list of all migrations.
+	 *
+	 * @static
+	 * @uses MpmDbHelper::doMultiRowSelect()
+	 *
+	 * @param int $startIdx			the start index number
+	 * @param int $total			total number of records to return
+	 * @param bool $with_file_info	include migration file info (the description)
+	 * @return array
+	 */
+    static function getFullList($startIdx = 0, $total = 30, $with_file_info = false)
     {
     	$db_config = MpmDbHelper::get_db_config();
     	$migrations_table = $db_config->migrations_table;
@@ -54,6 +55,23 @@ class MpmListHelper
             $sql .= " LIMIT $startIdx,$total";
         }
         $list = MpmDbHelper::doMultiRowSelect($sql);
+
+		if ($with_file_info) {
+			$list_of_files = MpmListHelper::getListOfFiles();
+
+			foreach ($list as &$l) {
+				$migration_file_info = $list_of_files[strtotime($l->timestamp)];
+
+				$classname = 'Migration_' . str_replace('.php', '', $migration_file_info->filename);
+
+				require_once($migration_file_info->full_file);
+
+				$migration = new $classname();
+
+				$l->info = $migration->info;
+			}
+		}
+
         return $list;
     }
 

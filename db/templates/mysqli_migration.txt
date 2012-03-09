@@ -2,6 +2,8 @@
 
 class Migration_@@timestamp@@ extends MpmMysqliMigration {
 
+	public $info = "";
+
 	public function up(ExceptionalMysqli &$db) {
 /*
 		$sql =<<< SQL_UP_BLOCK

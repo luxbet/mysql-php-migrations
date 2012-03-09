@@ -194,7 +194,7 @@ class MpmDbHelper
     static public function test()
     {
         $problems = array();
-        if (!file_exists(MPM_CONFIG_FILE_PATH . '/db_config.php'))
+        if (!file_exists(MPM_CONFIG_FILE_PATH . '/db_migration_config.php'))
         {
             $problems[] = 'You have not yet run the init command.  You must run this command before you can use any other commands.';
         }

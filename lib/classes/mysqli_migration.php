@@ -17,6 +17,12 @@
 abstract class MpmMysqliMigration
 {
 	/**
+	 * Information about this migration
+	 * @var string
+	 */
+	public $info = "";
+
+	/**
 	 * Migrates the database up.
 	 * 
 	 * @param ExceptionalMysqli $mysqli an ExceptionalMysqli object

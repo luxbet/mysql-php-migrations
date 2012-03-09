@@ -97,12 +97,18 @@ class MpmMigrationHelper
 		}
 
 	    // file exists -- run the migration
-		$msg = '# Performing' . strtoupper($method) . " migration " . $obj->timestamp . ' (ID '.$obj->id.')...';
-		echo "\n\t" . $msg;
-		MpmSqlLogger::log_to_file($msg . "\n");
-
 		require_once($migration_file);
 		$migration = new $classname();
+
+		$msg = "# Performing " . strtoupper($method) . " migration " . $obj->timestamp . ' (ID '.$obj->id.')';
+
+		if (!empty($migration->info)) {
+			$msg .= "\n# {$migration->info}";
+		}
+
+		echo "\n" . $msg . " ... ";
+		MpmSqlLogger::log_to_file("\n" . $msg . "\n");
+
         if ($migration instanceof MpmMigration) // need PDO object
         {
             $dbObj = MpmDbHelper::getPdoObj();

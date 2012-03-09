@@ -26,12 +26,16 @@ This project was created to address the problem of maintaining database changes 
 
 define('MPM_PATH', '/usr/local/src/mysql-php-migration');
 
-# the config file is ./db_migration/db_config.php
+# the config file is ./db_migration/db_migration_config.php
 define('MPM_CONFIG_FILE_PATH', './db_migration');
 
 require(MPM_PATH . '/migrate.php');
 
 ```
+
+* rename migration config file name from ``db_config.php`` to ``db_migration_config.php``
+* add a ``info`` field to migration file, which will be shown in the SQL log file and list command
+* "list" command: show migration info and "highlight" current migration so you don't need to run "status" command separately
 
 ## Known Issues:
 
