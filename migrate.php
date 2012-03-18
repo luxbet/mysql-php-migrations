@@ -46,6 +46,7 @@ try {
 	// exit gracefully when wrong action is called like './migrate.php -h'
 	$obj = MpmCommandLineWriter::getInstance();
 	$obj->addText('Invalid action. Please try "./migrate.php help"');
+	$obj->addText($ex->getMessage());
 	$obj->write();
 }
 
