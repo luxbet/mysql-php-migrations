@@ -17,8 +17,16 @@
 class MpmSqlLogger {
 	private static $file_name = "log.sql";
 
+	private static $enabled = false;
+
+	public static function set_enable($enabled) {
+		self::$enabled = $enabled;
+	}
+
 	public static function log_to_file($string) {
-		error_log($string . "\n", 3, self::$file_name);
+		if (self::$enabled) {
+			error_log($string . "\n", 3, self::$file_name);
+		}
 	}
 
 	public static function remove_file() {

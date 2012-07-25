@@ -71,7 +71,7 @@ class MpmLatestController extends MpmController
 	public function displayHelp()
 	{
 		$obj = MpmCommandLineWriter::getInstance();
-		$obj->addText('./migrate.php latest [--force|-f] [--dry-run|-p]');
+		$obj->addText('./migrate.php latest [--force|-f] [--dry-run|-p] [--dumpsql|-d]');
 		$obj->addText(' ');
 		$obj->addText('This command is used to migrate up to the most recent version.  No arguments are required.');
 		$obj->addText(' ');

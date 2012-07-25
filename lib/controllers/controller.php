@@ -75,6 +75,13 @@ abstract class MpmController
 				case '-p':
 					$dryrun = true;
 					break;
+
+				// dump SQL log file
+				case '--dump-sql':
+				case '--dumpsql':
+				case '-d':
+					MpmSqlLogger::set_enable(true);
+					break;
 			}
 		}
 
