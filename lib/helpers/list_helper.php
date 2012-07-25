@@ -49,7 +49,7 @@ class MpmListHelper
     	$db_config = MpmDbHelper::get_db_config();
     	$migrations_table = $db_config->migrations_table;
     	$list = array();
-        $sql = "SELECT * FROM `{$migrations_table}` ORDER BY `timestamp`";
+        $sql = "SELECT * FROM `{$migrations_table}` ORDER BY `timestamp` DESC";
         if ($total > 0)
         {
             $sql .= " LIMIT $startIdx,$total";
