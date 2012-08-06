@@ -44,7 +44,7 @@ class MpmListHelper
 	 * @param bool $with_file_info	include migration file info (the description)
 	 * @return array
 	 */
-    static function getFullList($startIdx = 0, $total = 30, $with_file_info = false)
+	static function getFullList($startIdx = 0, $total = 30, $with_file_info = false)
     {
     	$db_config = MpmDbHelper::get_db_config();
     	$migrations_table = $db_config->migrations_table;
@@ -60,7 +60,13 @@ class MpmListHelper
 			$list_of_files = MpmListHelper::getListOfFiles();
 
 			foreach ($list as &$l) {
-				$migration_file_info = $list_of_files[strtotime($l->timestamp)];
+				$index = strtotime($l->timestamp);
+
+				if (!isset($list_of_files[$index])) {
+					die("ERROR: Found this index in database but no corresponding migration file,\nplease correct it first: {$l->timestamp}\n");
+				}
+
+				$migration_file_info = $list_of_files[$index];
 
 				$classname = 'Migration_' . str_replace('.php', '', $migration_file_info->filename);
 
