@@ -1,0 +1,6 @@
+{
+  "name": "luxbet/mysql-php-migrations",
+  "description": "Command line utility for managing MySQL database migrations",
+  "type": "project",
+  "version": "2.2.0-luxbet"
+}
