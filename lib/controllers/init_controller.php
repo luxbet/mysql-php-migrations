@@ -49,8 +49,8 @@ class MpmInitController extends MpmController
 
 		$skip_init_db_migration_config = false;
 
-		if (file_exists(MPM_CONFIG_FILE_PATH . '/db_migration_config.php'))
-		{
+		if (file_exists(MPM_CONFIG_FILE_PATH . '/db_migration_config.php') ||
+			file_exists(MPM_CONFIG_FILE_PATH . '/db.php')) {
 			echo "\nFound an existing migration config file db_migration_config.php and will use that";
 			$skip_init_db_migration_config = true;
 		} else {
@@ -58,7 +58,13 @@ class MpmInitController extends MpmController
 		}
 
 		// $db_config is introduced by require db_migration_config.php
-		require(MPM_CONFIG_FILE_PATH . '/db_migration_config.php');
+		if (file_exists(MPM_CONFIG_FILE_PATH . '/db_migration_config.php')) {
+			require(MPM_CONFIG_FILE_PATH . '/db_migration_config.php');
+		} else {
+			// Use adapter to read from WAGERplayer DB config file
+			require(MPM_MIGRATION_FILE_PATH.'/db_migration_config_adapter.php');
+		}
+
 		$GLOBALS['db_config'] = $db_config;
 
 		$this->init_migration_db_table($db_config->migrations_table);
@@ -123,7 +129,7 @@ class MpmInitController extends MpmController
 			echo $db_config->host;
 		}
 		else {
-			echo 'localhost';
+			echo '127.0.0.1';
 		}
 		echo ']: ';
 		$host = fgets(STDIN);
@@ -133,7 +139,7 @@ class MpmInitController extends MpmController
 				$host = $db_config->host;
 			}
 			else {
-				$host = 'localhost';
+				$host = '127.0.0.1';
 			}
 		}
 
@@ -203,7 +209,7 @@ class MpmInitController extends MpmController
 			echo $db_config->db_path;
 		}
 		else {
-			echo MPM_PATH . '/db/';
+			echo MPM_MIGRATION_FILE_PATH;
 		}
 		echo ']: ';
 		$db_path = fgets(STDIN);
@@ -212,7 +218,7 @@ class MpmInitController extends MpmController
 			$db_path = $db_config->db_path;
 		}
 		else if (empty($db_path) && !isset($db_config)) {
-			$db_path = MPM_PATH . '/db/';
+			$db_path = MPM_MIGRATION_FILE_PATH;
 		}
 		if (substr($db_path, strlen($db_path) - 1, 1) != '/') {
 			$db_path .= '/';

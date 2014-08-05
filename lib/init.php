@@ -8,17 +8,6 @@
  * @link       http://code.google.com/p/mysql-php-migrations/
  */
 
-if (!defined('MPM_CONFIG_FILE_PATH')) {
-	define('MPM_CONFIG_FILE_PATH', MPM_PATH . '/config');
-}
-
-if (file_exists(MPM_CONFIG_FILE_PATH . '/db_migration_config.php')) {
-	/**
-	 * Include the database connection info.
-	 */
-	require_once(MPM_CONFIG_FILE_PATH . '/db_migration_config.php');
-}
-
 if (!defined('MPM_DB_PATH'))
 {
     if (isset($db_config->db_path) && strlen($db_config->db_path) > 0)

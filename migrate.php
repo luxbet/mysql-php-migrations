@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 /**
  * This file is the main script which should be run on the command line in order to perform database migrations.
@@ -30,17 +29,19 @@ if (!defined('MPM_PATH')) {
 /**
  * Version Number - for reference
  */
-define('MPM_VERSION', '2.2.0-luxbet');
+if(!defined('MPM_VERSION')) {
+	define('MPM_VERSION', '2.2.0-luxbet');
+}
+
 
 /**
  * Include the init script.
  */
 require_once(MPM_PATH . '/lib/init.php');
-
 // get the proper controller, do the action, and exit the script
 try {
 	$obj = MpmControllerFactory::getInstance($argv);
-	$obj->doAction();
+	$obj->doAction(true);
 
 } catch (MpmClassUndefinedException $ex) {
 	// exit gracefully when wrong action is called like './migrate.php -h'
@@ -49,7 +50,4 @@ try {
 	$obj->addText($ex->getMessage());
 	$obj->write();
 }
-
-exit;
-
 ?>

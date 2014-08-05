@@ -194,73 +194,67 @@ class MpmDbHelper
     static public function test()
     {
         $problems = array();
-        if (!file_exists(MPM_CONFIG_FILE_PATH . '/db_migration_config.php'))
-        {
-            $problems[] = 'You have not yet run the init command.  You must run this command before you can use any other commands.';
-        }
-        else
-        {
-            switch (MpmDbHelper::getMethod())
-            {
-                case MPM_METHOD_PDO:
-                    if (!class_exists('PDO'))
-                    {
-                        $problems[] = 'It does not appear that the PDO extension is installed.';
-                    }
-                    $drivers = PDO::getAvailableDrivers();
-                    if (!in_array('mysql', $drivers))
-                    {
-                        $problems[] = 'It appears that the mysql driver for PDO is not installed.';
-                    }
-                    if (count($problems) == 0)
-                    {
-                        try
-                        {
-                            $pdo = MpmDbHelper::getPdoObj();
-                        }
-                        catch (Exception $e)
-                        {
-                            $problems[] = 'Unable to connect to the database: ' . $e->getMessage();
-                        }
-                    }
-                    break;
-                case MPM_METHOD_MYSQLI:
-                    if (!class_exists('mysqli'))
-                    {
-                        $problems[] = "It does not appear that the mysqli extension is installed.";
-                    }
-                    if (count($problems) == 0)
-                    {
-                        try
-                        {
-                            $mysqli = MpmDbHelper::getMysqliObj();
-                        }
-                        catch (Exception $e)
-                        {
-                            $problems[] = "Unable to connect to the database: " . $e->getMessage();
-                        }
-                    }
-                    break;
-            }
-            if (!MpmDbHelper::checkForDbTable())
-            {
-                $problems[] = 'Migrations table not found in your database.  Re-run the init command.';
-            }
-            if (count($problems) > 0)
-            {
-                $obj = MpmCommandLineWriter::getInstance();
-                $obj->addText("It appears there are some problems:");
-                $obj->addText("\n");
-                foreach ($problems as $problem)
-                {
-                    $obj->addText($problem, 4);
-                    $obj->addText("\n");
-                }
-                $obj->write();
-                exit;
-            }
-        }
-    }
+
+		switch (MpmDbHelper::getMethod())
+		{
+			case MPM_METHOD_PDO:
+				if (!class_exists('PDO'))
+				{
+					$problems[] = 'It does not appear that the PDO extension is installed.';
+				}
+				$drivers = PDO::getAvailableDrivers();
+				if (!in_array('mysql', $drivers))
+				{
+					$problems[] = 'It appears that the mysql driver for PDO is not installed.';
+				}
+				if (count($problems) == 0)
+				{
+					try
+					{
+						$pdo = MpmDbHelper::getPdoObj();
+					}
+					catch (Exception $e)
+					{
+						$problems[] = 'Unable to connect to the database: ' . $e->getMessage();
+					}
+				}
+				break;
+			case MPM_METHOD_MYSQLI:
+				if (!class_exists('mysqli'))
+				{
+					$problems[] = "It does not appear that the mysqli extension is installed.";
+				}
+				if (count($problems) == 0)
+				{
+					try
+					{
+						$mysqli = MpmDbHelper::getMysqliObj();
+					}
+					catch (Exception $e)
+					{
+						$problems[] = "Unable to connect to the database: " . $e->getMessage();
+					}
+				}
+				break;
+		}
+		if (!MpmDbHelper::checkForDbTable())
+		{
+			$problems[] = 'Migrations table not found in your database.  Re-run the init command.';
+		}
+		if (count($problems) > 0)
+		{
+			$obj = MpmCommandLineWriter::getInstance();
+			$obj->addText("It appears there are some problems:");
+			$obj->addText("\n");
+			foreach ($problems as $problem)
+			{
+				$obj->addText($problem, 4);
+				$obj->addText("\n");
+			}
+			$obj->write();
+			exit;
+		}
+	}
 
 	/**
 	 * Checks whether or not the migrations database table exists.

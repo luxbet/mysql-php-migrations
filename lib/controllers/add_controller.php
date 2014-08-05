@@ -82,7 +82,7 @@ class MpmAddController extends MpmController
 
 		// display success message
 		$obj = MpmCommandLineWriter::getInstance();
-		$obj->addText('New migration created: file /db/' . $filename);
+		$obj->addText('New migration created: file ./db_migration/' . $filename);
 		$obj->write();
 	}
 
