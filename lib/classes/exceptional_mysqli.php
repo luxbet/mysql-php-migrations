@@ -109,7 +109,7 @@ class ExceptionalMysqli extends mysqli
 		return $this->internal_query($sql);
 	}
 
-	public function commit() {
+	public function commit($flags = NULL, $name = NULL) {
 		if (!$this->dryrun) {
 			parent::commit();
 		}
