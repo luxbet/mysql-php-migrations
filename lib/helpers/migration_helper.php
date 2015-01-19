@@ -147,7 +147,9 @@ class MpmMigrationHelper
 			if (!$forced)
 			{
         		echo "\n\n";
-			    exit;
+
+				// Return with non-0 error code to notify external caller to stop the deployment
+				exit(1);
 			}
 			else
 			{
