@@ -63,7 +63,9 @@ class MpmListHelper
 				$index = strtotime($l->timestamp);
 
 				if (!isset($list_of_files[$index])) {
-					die("ERROR: Found this index in database but no corresponding migration file,\nplease correct it first: {$l->timestamp}\n");
+					// Return with non-0 error code to notify external caller to stop the deployment
+					echo "ERROR: Found this index in database but no corresponding migration file,\nplease correct it first: {$l->timestamp}\n";
+					exit(1);
 				}
 
 				$migration_file_info = $list_of_files[$index];
